@@ -1,0 +1,41 @@
+- name: Create MQTT directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: mosquitto
+    group: mosquitto
+    mode: 0755
+  loop: "{{ mqtt_directories }}"
+  tags:
+    - mqtt_config
+
+# - name: Create empty MQTT files for use by the running container
+#   file:
+#     path: "{{ mqtt_data_path }}/{{ item }}"
+#     state: touch
+#     owner: mosquitto
+#     group: mosquitto
+#     mode: 0644
+#   loop: "{{ mqtt_touch_files }}"
+#   tags:
+#     - mqtt_config
+
+- name: Copy MQTT config files
+  template:
+    src: "{{ item }}"
+    dest: "{{ mqtt_data_path }}/config/{{ item | splitext | first }}"
+    backup: yes
+  loop: "{{ mqtt_config_files }}"
+  notify: restart mqtt container
+  tags:
+    - mqtt_config
+
+- name: Run MQTT
+  docker_container:
+    image: "{{ mqtt_image_name }}"
+    name: "{{ mqtt_container_name }}"
+    network_mode: "{{ mqtt_container_network_mode }}"
+    restart_policy: "{{ mqtt_container_restart_policy }}"
+    state: started
+    published_ports: "{{ mqtt_container_published_ports }}"
+    volumes: "{{ mqtt_container_volumes }}"

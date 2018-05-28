@@ -1,0 +1,26 @@
+- include_vars: "{{ mqtt_installation_method }}.yml"
+  tags:
+    - always
+
+- name: Create mosquitto group
+  group:
+    name: mosquitto
+    gid: 101
+    system: yes
+  tags:
+    - mqtt
+
+- name: Create mosquitto user
+  user:
+    name: mosquitto
+    create_home: no
+    shell: /sbin/nologin
+    home: /var/empty
+    uid: 100
+    system: yes
+  tags:
+    - mqtt
+
+- include_tasks: "{{ mqtt_installation_method }}.yml"
+  tags:
+    - mqtt

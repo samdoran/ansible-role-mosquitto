@@ -1,0 +1,3 @@
+{% for item in mqtt_accounts %}
+{{ item.name }}:{{ item.password | password_hash('sha512', salt=item.salt) }}
+{% endfor %}

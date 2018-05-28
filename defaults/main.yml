@@ -1,0 +1,35 @@
+mqtt_installation_method: container
+mqtt_directories:
+    - "{{ mqtt_data_path }}/config"
+    - "{{ mqtt_data_path }}/data"
+    - "{{ mqtt_data_path }}/log"
+
+mqtt_config_files:
+  - mosquitto.conf.j2
+  - passwd.j2
+
+mqtt_touch_files:
+  - mosquitto.log
+  - mosquitto.db
+
+mqtt_accounts: []
+
+# Container setings
+mqtt_container_name: mqtt
+mqtt_image_name: eclipse-mosquitto
+mqtt_container_network_mode: host
+mqtt_container_restart_policy: always
+mqtt_container_data_path: /mosquitto
+mqtt_image: eclipse-mosquitto
+mott_container_name: mqtt
+mott_container_network_mode: host
+mqnn_container_restart_policy: always
+mqtt_container_state: started
+mqtt_container_published_ports:
+  - 1883:1883
+  - 9001:9001
+
+mqtt_container_volumes:
+  - "{{ mqtt_data_path }}/config:{{ mqtt_container_data_path }}/config:{{ mqtt_mount_options }}"
+  - "{{ mqtt_data_path }}/data:{{ mqtt_container_data_path }}/data:{{ mqtt_mount_options }}"
+  - "{{ mqtt_data_path }}/log:{{ mqtt_container_data_path }}/log:{{ mqtt_mount_options }}"
