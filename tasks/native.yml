@@ -1,0 +1,14 @@
+- include_tasks: "install-{{ ansible_facts.os_family }}.yml"
+  tags:
+    - mqtt
+
+- name: Copy MQTT config files
+  template:
+    src: "{{ item }}"
+    dest: "{{ mqtt_config_dir }}/{{ item | splitext | first }}"
+    backup: true
+  loop: "{{ mqtt_config_files }}"
+  notify: restart mqtt
+  tags:
+    - mqtt
+    - mqtt_config

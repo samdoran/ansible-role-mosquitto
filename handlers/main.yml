@@ -5,6 +5,17 @@
     network_mode: "{{ mqtt_container_network_mode }}"
     restart_policy: "{{ mqtt_container_restart_policy }}"
     state: started
-    restart: yes
+    restart: true
     published_ports: "{{ mqtt_container_published_ports }}"
     volumes: "{{ mqtt_container_volumes }}"
+  listen: restart mqtt
+  when: mqtt_installation_method == 'container'
+
+- name: restart mqtt service
+  service:
+    name: "{{ mqtt_service_name }}"
+    state: restarted
+  listen: restart mqtt
+  when:
+    - mqtt_installation_method == 'native'
+    - not service_start | default({}) is changed

@@ -1,0 +1,34 @@
+- hosts: all
+  become: true
+
+  tasks:
+    - debug:
+        msg: >-
+          Testing with Ansible {{ ansible_version.full }} using Python {{ ansible_facts.python_version }}
+          on {{ ansible_facts.distribution }} {{ ansible_facts.distribution_version }}
+
+    - import_role:
+        name: mosquitto
+
+    - name: Install pip
+      apt:
+        name: python-pip
+        state: present
+
+    - name: Install paho-mqtt
+      pip:
+        name: paho-mqtt
+        state: present
+
+    - name: Test MQTT connection
+      mqtt:
+        topic: /ansible/test
+        payload: 'None'
+      register: test_result
+      tags:
+        - validate
+
+    - debug:
+        var: test_result
+      tags:
+        - validate

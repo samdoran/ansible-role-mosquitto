@@ -1,26 +1,29 @@
-- include_vars: "{{ mqtt_installation_method }}.yml"
+- name: Include variables for {{ mqtt_installation_method }} installation
+  include_vars: "{{ mqtt_installation_method }}.yml"
   tags:
     - always
 
-- name: Create mosquitto group
-  group:
-    name: mosquitto
-    gid: 101
-    system: yes
+- name: Include distribution specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_facts.os_family }}-{{ ansible_facts.distribution_major_version }}.yml"
+    - "{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_version }}.yml"
+    - "{{ ansible_facts.os_family }}.yml"
+    - "{{ ansible_facts.os_distribution }}.yml"
+    - defaults/main.yml
   tags:
-    - mqtt
-
-- name: Create mosquitto user
-  user:
-    name: mosquitto
-    create_home: no
-    shell: /sbin/nologin
-    home: /var/empty
-    uid: 100
-    system: yes
-  tags:
-    - mqtt
+    - always
 
 - include_tasks: "{{ mqtt_installation_method }}.yml"
+  tags:
+    - mqtt
+    - mqtt_config
+
+- name: Start and enable mosquitto service
+  service:
+    name: "{{ mqtt_service_name }}"
+    state: started
+    enabled: true
+  register: service_start
   tags:
     - mqtt

@@ -1,0 +1,7 @@
+- name: RHEL | Install packages
+  action: "{{ ansible_facts.pkg_mgr }}"
+  args:
+    name: "{{ mqtt_packages }}"
+    state: latest
+  tags:
+    - mqtt

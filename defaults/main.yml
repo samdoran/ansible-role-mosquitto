@@ -1,8 +1,17 @@
-mqtt_installation_method: container
+mqtt_data_dir: /var/lib/mosquitto
+mqtt_config_dir: /etc/mosquitto
+mqtt_include_dir: "{{ mqtt_config_dir }}/conf.d"
+mqtt_installation_method: native
+mqtt_packages:
+  - mosquitto
+  - mosquitto-clients
+
+mqtt_service_name: mosquitto
 mqtt_directories:
-    - "{{ mqtt_data_path }}/config"
-    - "{{ mqtt_data_path }}/data"
-    - "{{ mqtt_data_path }}/log"
+  - "{{ mqtt_data_dir }}/config"
+  - "{{ mqtt_data_dir }}/data"
+  - "{{ mqtt_data_dir }}/log"
+
 
 mqtt_config_files:
   - mosquitto.conf.j2
@@ -13,6 +22,19 @@ mqtt_touch_files:
   - mosquitto.db
 
 mqtt_accounts: []
+mqtt_pid_file: /var/run/mosquitto.pid
+mqtt_user: mosquitto
+mqtt_port: 1883
+mqtt_listeners: []
+mqtt_persistence_file: mosquitto.db
+mqtt_persistence_location: "{{ mqtt_data_dir }}/"
+mqtt_log_dests:
+  - file /var/log/mosquitto/mosquitto.log
+
+mqtt_log_types:
+  - error
+  - warning
+
 
 # Container setings
 mqtt_container_name: mqtt
@@ -20,16 +42,89 @@ mqtt_image_name: eclipse-mosquitto
 mqtt_container_network_mode: host
 mqtt_container_restart_policy: always
 mqtt_container_data_path: /mosquitto
-mqtt_image: eclipse-mosquitto
-mott_container_name: mqtt
-mott_container_network_mode: host
-mqnn_container_restart_policy: always
 mqtt_container_state: started
 mqtt_container_published_ports:
   - 1883:1883
   - 9001:9001
 
 mqtt_container_volumes:
-  - "{{ mqtt_data_path }}/config:{{ mqtt_container_data_path }}/config:{{ mqtt_mount_options }}"
-  - "{{ mqtt_data_path }}/data:{{ mqtt_container_data_path }}/data:{{ mqtt_mount_options }}"
-  - "{{ mqtt_data_path }}/log:{{ mqtt_container_data_path }}/log:{{ mqtt_mount_options }}"
+  - "{{ mqtt_data_dir }}/config:{{ mqtt_container_data_path }}/config:{{ mqtt_mount_options }}"
+  - "{{ mqtt_data_dir }}/data:{{ mqtt_container_data_path }}/data:{{ mqtt_mount_options }}"
+  - "{{ mqtt_data_dir }}/log:{{ mqtt_container_data_path }}/log:{{ mqtt_mount_options }}"
+
+# mqtt_sys_interval: 10
+# mqtt_store_clean_interval: 10
+
+# mqtt_max_inflight_messages: 20
+# mqtt_max_inflight_bytes: 0
+# mqtt_max_queued_messages: 100
+# mqtt_max_queued_bytes: 0
+# mqtt_queue_qos0_messages: false
+# mqtt_message_size_limit: 0
+# mqtt_allow_zero_length_clientid: true
+# mqtt_auto_id_prefix: ""
+# mqtt_persistent_client_expiration: '1d'
+# mqtt_allow_duplicate_messages: false
+# mqtt_upgrade_outgoing_qos: false
+# mqtt_set_tcp_nodelay: false
+# mqtt_per_listener_settings: false
+# mqtt_bind_address: "{{ ansible_facts.default_ipv4_address }}"
+
+# mqtt_max_connections: '-1'
+# mqtt_protocol: mqtt
+# mqtt_http_dir: "{{ mqtt_data_dir }}"
+# mqtt_use_username_as_clientid: false
+# mqtt_cafile: ''
+# mqtt_capath: ''
+# mqtt_certfile: ''
+# mqtt_keyfile: ''
+# mqtt_tls_version: '1.2'
+# mqtt_require_certificate: false
+# mqtt_use_identity_as_username: false
+# mqtt_use_subject_as_username: false
+# mqtt_crlfile: ''
+# mqtt_ciphers: 'DEFAULT:!aNULL:!eNULL:!LOW:!EXPORT:!SSLv2:@STRENGTH'
+# mqtt_psk_hint: Greetings from mosquitto
+
+# mqtt_mount_point: ''
+# mqtt_autosave_interval: 1800
+# mqtt_autosave_on_changes: false
+# mqtt_persistence: false
+
+# mqtt_log_facility: daemon
+
+# mqtt_websockets_log_level: 0
+# mqtt_connection_messages: true
+# mqtt_log_timestamp: true
+# mqtt_clientid_prefixes: false
+# mqtt_allow_anonymous: true
+# mqtt_password_file: "{{ mqtt_config_dir }}/passwd"
+# mqtt_psk_file: ''
+# mqtt_acl_file: "{{ mqtt_config_dir }}/acl
+mqtt_auth_plugins: []
+# mqtt_connection: <name>
+# mqtt_address: <host>[:<port>] [<host>[:<port>]]
+# mqtt_topic: <topic> [[[out | in | both] qos-level] local-prefix remote-prefix]
+# mqtt_bridge_protocol_version: mqttv311
+# mqtt_bridge_attempt_unsubscribe: true
+# mqtt_round_robin: false
+# mqtt_remote_clientid: ""
+# mqtt_local_clientid: false
+# mqtt_cleansession: false
+# mqtt_notifications: true
+# mqtt_notification_topic: $SYS/broker/connection/<clientid>/state
+# mqtt_keepalive_interval: 60
+# mqtt_start_type: automatic
+# mqtt_restart_timeout: 30
+# mqtt_idle_timeout: 60
+# mqtt_threshold: 10
+# mqtt_try_private: true
+# mqtt_remote_username: ""
+# mqtt_remote_password: ""
+# mqtt_bridge_cafile: ""
+# mqtt_bridge_capath: ""
+# mqtt_bridge_certfile: ""
+# mqtt_bridge_keyfile: ""
+# mqtt_bridge_insecure: false
+# mqtt_bridge_identity: ""
+# mqtt_bridge_psk: ""

@@ -1,3 +1,22 @@
+- name: Create mosquitto group
+  group:
+    name: mosquitto
+    gid: 101
+    system: true
+  tags:
+    - mqtt
+
+- name: Create mosquitto user
+  user:
+    name: mosquitto
+    create_home: false
+    shell: /sbin/nologin
+    home: /var/empty
+    uid: 100
+    system: true
+  tags:
+    - mqtt
+
 - name: Create MQTT directories
   file:
     path: "{{ item }}"
@@ -7,11 +26,12 @@
     mode: 0755
   loop: "{{ mqtt_directories }}"
   tags:
+    - mqtt
     - mqtt_config
 
 # - name: Create empty MQTT files for use by the running container
 #   file:
-#     path: "{{ mqtt_data_path }}/{{ item }}"
+#     path: "{{ mqtt_data_dir }}/{{ item }}"
 #     state: touch
 #     owner: mosquitto
 #     group: mosquitto
@@ -23,11 +43,12 @@
 - name: Copy MQTT config files
   template:
     src: "{{ item }}"
-    dest: "{{ mqtt_data_path }}/config/{{ item | splitext | first }}"
-    backup: yes
+    dest: "{{ mqtt_data_dir }}/config/{{ item | splitext | first }}"
+    backup: true
   loop: "{{ mqtt_config_files }}"
   notify: restart mqtt container
   tags:
+    - mqtt
     - mqtt_config
 
 - name: Run MQTT
@@ -39,3 +60,5 @@
     state: started
     published_ports: "{{ mqtt_container_published_ports }}"
     volumes: "{{ mqtt_container_volumes }}"
+  tags:
+    - mqtt
