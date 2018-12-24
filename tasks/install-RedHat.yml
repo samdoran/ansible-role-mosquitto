@@ -5,3 +5,35 @@
     state: latest
   tags:
     - mqtt
+
+- name: Create MQTT directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ mqtt_user }}"
+    group: "{{ mqtt_group }}"
+    mode: '0755'
+  loop: "{{ mqtt_directories | union([mqtt_include_dir, mqtt_log_dir]) }}"
+  tags:
+    - mqtt
+    - mqtt_config
+
+- name: RHEL | Check for log file
+  stat:
+    path: "{{ mqtt_log_file }}"
+  register: mqtt_log_file_status
+  tags:
+    - mqtt
+    - mqtt_config
+
+- name: RHEL | Touch log file
+  file:
+    path: "{{ mqtt_log_file }}"
+    state: touch
+    owner: "{{ mqtt_user }}"
+    group: "{{ mqtt_group }}"
+    mode: '0644'
+  when: not mqtt_log_file_status.stat.exists
+  tags:
+    - mqtt
+    - mqtt_config

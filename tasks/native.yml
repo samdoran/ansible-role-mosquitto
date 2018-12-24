@@ -5,8 +5,11 @@
 - name: Copy MQTT config files
   template:
     src: "{{ item }}"
-    dest: "{{ mqtt_config_dir }}/{{ item | splitext | first }}"
+    dest: "{{ mqtt_config_dir }}/{{ (item.name | default(item) | splitext) | first }}"
     backup: true
+    owner: "{{ item.owner | default(omit) }}"
+    group: "{{ item.group | default(omit) }}"
+    mode: "{{ item.mode | default(omit) }}"
   loop: "{{ mqtt_config_files }}"
   notify: restart mqtt
   tags:

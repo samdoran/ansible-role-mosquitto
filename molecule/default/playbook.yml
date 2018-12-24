@@ -10,11 +10,6 @@
     - import_role:
         name: mosquitto
 
-    - name: Install pip
-      apt:
-        name: python-pip
-        state: present
-
     - name: Install paho-mqtt
       pip:
         name: paho-mqtt

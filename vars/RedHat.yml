@@ -1,3 +1,2 @@
 mqtt_packages:
   - mosquitto
-  - mosquitto-clients
