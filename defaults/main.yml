@@ -12,7 +12,7 @@ mqtt_directories:
   - "{{ mqtt_data_dir }}/log"
 
 mqtt_config_files:
-  - mosquitto.conf.j2
+  - name: mosquitto.conf.j2
   - name: passwd.j2
     owner: "{{ mqtt_user }}"
     group: "{{ mqtt_group }}"
