@@ -1,26 +1,11 @@
-mqtt_data_dir: /var/lib/mosquitto
-mqtt_config_dir: /etc/mosquitto
-mqtt_include_dir: "{{ mqtt_config_dir }}/conf.d"
-mqtt_log_dir: /var/log/mosquitto
-mqtt_log_file: mosquitto.log
 mqtt_installation_method: native
-
+mqtt_log_file: mosquitto.log
 mqtt_service_name: mosquitto
-mqtt_directories:
-  - "{{ mqtt_data_dir }}/config"
-  - "{{ mqtt_data_dir }}/data"
-  - "{{ mqtt_data_dir }}/log"
 
 mqtt_config_files:
   - name: mosquitto.conf.j2
   - name: passwd.j2
-    owner: "{{ mqtt_user }}"
-    group: "{{ mqtt_group }}"
     mode: '0600'
-
-mqtt_touch_files:
-  - "{{ mqtt_log_file }}"
-  - "{{ mqtt_persistence_file }}"
 
 mqtt_accounts: []
 mqtt_pid_file: /var/run/mosquitto.pid
@@ -28,10 +13,9 @@ mqtt_user: mosquitto
 mqtt_group: mosquitto
 mqtt_port: 1883
 mqtt_listeners: []
+mqtt_persistence: true
 mqtt_persistence_file: mosquitto.db
-mqtt_persistence_location: "{{ mqtt_data_dir }}/"
-mqtt_log_dests:
-  - file {{ mqtt_log_file }}
+mqtt_autosave_interval: 300
 
 mqtt_log_types:
   - error
@@ -43,16 +27,18 @@ mqtt_container_name: mqtt
 mqtt_image_name: eclipse-mosquitto
 mqtt_container_network_mode: host
 mqtt_container_restart_policy: always
-mqtt_container_data_path: /mosquitto
+mqtt_container_config_dir: /mosquitto/config
+mqtt_container_data_dir: /mosquitto/data
+mqtt_container_log_dir: /mosquitto/log
 mqtt_container_state: started
 mqtt_container_published_ports:
   - 1883:1883
   - 9001:9001
 
 mqtt_container_volumes:
-  - "{{ mqtt_data_dir }}/config:{{ mqtt_container_data_path }}/config:{{ mqtt_mount_options }}"
-  - "{{ mqtt_data_dir }}/data:{{ mqtt_container_data_path }}/data:{{ mqtt_mount_options }}"
-  - "{{ mqtt_data_dir }}/log:{{ mqtt_container_data_path }}/log:{{ mqtt_mount_options }}"
+  - "{{ mqtt_data_dir }}/config:{{ mqtt_container_data_dir }}/config:{{ mqtt_mount_options }}"
+  - "{{ mqtt_data_dir }}/data:{{ mqtt_container_data_dir }}/data:{{ mqtt_mount_options }}"
+  - "{{ mqtt_data_dir }}/log:{{ mqtt_container_data_dir }}/log:{{ mqtt_mount_options }}"
 
 # mqtt_sys_interval: 10
 # mqtt_store_clean_interval: 10
@@ -91,7 +77,6 @@ mqtt_container_volumes:
 # mqtt_mount_point: ''
 # mqtt_autosave_interval: 1800
 # mqtt_autosave_on_changes: false
-# mqtt_persistence: false
 
 # mqtt_log_facility: daemon
 

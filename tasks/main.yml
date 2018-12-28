@@ -18,12 +18,3 @@
   tags:
     - mqtt
     - mqtt_config
-
-- name: Start and enable mosquitto service
-  service:
-    name: "{{ mqtt_service_name }}"
-    state: started
-    enabled: true
-  register: service_start
-  tags:
-    - mqtt

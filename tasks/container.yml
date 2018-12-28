@@ -29,29 +29,32 @@
     - mqtt
     - mqtt_config
 
-# - name: Create empty MQTT files for use by the running container
-#   file:
-#     path: "{{ mqtt_data_dir }}/{{ item }}"
-#     state: touch
-#     owner: "{{ mqtt_user }}"
-#     group: "{{ mqtt_group }}"
-#     mode: 0644
-#   loop: "{{ mqtt_touch_files }}"
-#   tags:
-#     - mqtt_config
+- name: Create empty MQTT files for use by the running container
+  file:
+    path: "{{ item }}"
+    state: touch
+    owner: "{{ mqtt_user }}"
+    group: "{{ mqtt_group }}"
+    mode: '0644'
+  loop: "{{ mqtt_touch_files }}"
+  tags:
+    - mqtt_config
 
 - name: Copy MQTT config files
   template:
-    src: "{{ item }}"
-    dest: "{{ mqtt_data_dir }}/config/{{ item | splitext | first }}"
+    src: "{{ item.name | default(item) }}"
+    dest: "{{ mqtt_data_dir }}/config/{{ item.name | default(item) | splitext | first }}"
     backup: true
-  loop: "{{ mqtt_config_files }}"
+    owner: "{{ mqtt_user }}"
+    group: "{{ mqtt_group }}"
+    mode: "{{ item.mode | default(omit) }}"
+  loop: "{{ mqtt_config_files | flatten(levels=1) }}"
   notify: restart mqtt container
   tags:
     - mqtt
     - mqtt_config
 
-- name: Run MQTT
+- name: Run MQTT container
   docker_container:
     image: "{{ mqtt_image_name }}"
     name: "{{ mqtt_container_name }}"

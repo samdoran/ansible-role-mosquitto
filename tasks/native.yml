@@ -4,7 +4,7 @@
 
 - name: Copy MQTT config files
   template:
-    src: "{{ item }}"
+    src: "{{ item | default(item) }}"
     dest: "{{ item.name | splitext | first }}"
     backup: true
     owner: "{{ item.owner | default(omit) }}"
@@ -15,3 +15,12 @@
   tags:
     - mqtt
     - mqtt_config
+
+- name: Start and enable mosquitto service
+  service:
+    name: "{{ mqtt_service_name }}"
+    state: started
+    enabled: true
+  register: service_start
+  tags:
+    - mqtt
