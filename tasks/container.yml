@@ -2,18 +2,18 @@
   group:
     name: mosquitto
     gid: 101
-    system: true
+    system: yes
   tags:
     - mqtt
 
 - name: Create mosquitto user
   user:
     name: mosquitto
-    create_home: false
+    create_home: no
     shell: /sbin/nologin
     home: /var/empty
     uid: 100
-    system: true
+    system: yes
   tags:
     - mqtt
 
@@ -44,7 +44,7 @@
   template:
     src: "{{ item.name | default(item) }}"
     dest: "{{ mqtt_data_dir }}/config/{{ item.name | default(item) | splitext | first }}"
-    backup: true
+    backup: yes
     owner: "{{ mqtt_user }}"
     group: "{{ mqtt_group }}"
     mode: "{{ item.mode | default(omit) }}"

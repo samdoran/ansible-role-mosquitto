@@ -5,10 +5,10 @@ driver:
 lint:
   name: yamllint
   options:
-    config-file: molecule/default/yaml-lint.yml
+    c: molecule/default/yaml-lint.yml
 platforms:
   - name: mosquitto-test
-    image: "samdoran/${MOLECULE_DISTRIBUTION:-centos7}-ansible:latest"
+    image: "quay.io/samdoran/${MOLECULE_DISTRIBUTION:-centos7}-ansible:latest"
     command: ${MOLECULE_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro

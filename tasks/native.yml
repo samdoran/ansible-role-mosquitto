@@ -6,7 +6,7 @@
   template:
     src: "{{ item.name | default(item) }}"
     dest: "{{ item.name | default(item) | splitext | first }}"
-    backup: true
+    backup: yes
     owner: "{{ item.owner | default(omit) }}"
     group: "{{ item.group | default(omit) }}"
     mode: "{{ item.mode | default(omit) }}"
@@ -20,7 +20,7 @@
   service:
     name: "{{ mqtt_service_name }}"
     state: started
-    enabled: true
+    enabled: yes
   register: service_start
   tags:
     - mqtt

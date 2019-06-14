@@ -2,6 +2,6 @@
   apt:
     name: "{{ mqtt_packages }}"
     state: latest
-    update_cache: true
+    update_cache: yes
   tags:
     - mqtt

@@ -13,7 +13,7 @@ mqtt_user: mosquitto
 mqtt_group: mosquitto
 mqtt_port: 1883
 mqtt_listeners: []
-mqtt_persistence: true
+mqtt_persistence: yes
 mqtt_persistence_file: mosquitto.db
 mqtt_autosave_interval: 300
 
