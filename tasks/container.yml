@@ -1,7 +1,6 @@
 - name: Create mosquitto group
   group:
     name: mosquitto
-    gid: 101
     system: yes
   tags:
     - mqtt
@@ -12,7 +11,6 @@
     create_home: no
     shell: /sbin/nologin
     home: /var/empty
-    uid: 100
     system: yes
   tags:
     - mqtt
@@ -23,7 +21,7 @@
     state: directory
     owner: "{{ mqtt_user }}"
     group: "{{ mqtt_group }}"
-    mode: 0755
+    mode: '0755'
   loop: "{{ mqtt_directories }}"
   tags:
     - mqtt
