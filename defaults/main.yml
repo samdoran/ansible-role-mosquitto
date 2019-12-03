@@ -38,9 +38,9 @@ mqtt_container_published_ports:
   - 9001:9001
 
 mqtt_container_volumes:
-  - "{{ mqtt_data_dir }}/config:{{ mqtt_container_config_dir }}:{{ mqtt_mount_options }}"
-  - "{{ mqtt_data_dir }}/data:{{ mqtt_container_data_dir }}:{{ mqtt_mount_options }}"
-  - "{{ mqtt_data_dir }}/log:{{ mqtt_container_log_dir }}:{{ mqtt_mount_options }}"
+  - "{{ mqtt_data_dir }}/config:{{ mqtt_container_config_dir }}:{{ mqtt_selinux_mount_options }}ro"
+  - "{{ mqtt_data_dir }}/data:{{ mqtt_container_data_dir }}:{{ mqtt_selinux_mount_options }}rw"
+  - "{{ mqtt_data_dir }}/log:{{ mqtt_container_log_dir }}:{{ mqtt_selinux_mount_options }}rw"
 
 # mqtt_sys_interval: 10
 # mqtt_store_clean_interval: 10
