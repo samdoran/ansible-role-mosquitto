@@ -5,7 +5,9 @@ mqtt_log_dir: "{{ mqtt_container_data_dir }}/log"
 mqtt_persistence_location: "{{ mqtt_container_data_dir }}/"
 
 mqtt_directories:
+  - "{{ mqtt_data_dir }}"
   - "{{ mqtt_data_dir }}/config"
+  - "{{ mqtt_data_dir }}/config/conf.d"
   - "{{ mqtt_data_dir }}/data"
   - "{{ mqtt_data_dir }}/log"
 
