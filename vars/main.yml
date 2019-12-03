@@ -1,1 +1,1 @@
-mqtt_selinux_mount_options: "{% if ansible_facts.selinux.status == 'enabled' %}Z{% endif %}"
+mqtt_selinux_mount_options: "{% if ansible_facts.selinux.status == 'enabled' %}Z,{% endif %}"
