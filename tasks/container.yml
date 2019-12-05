@@ -14,6 +14,7 @@
     system: yes
   tags:
     - mqtt
+  register: userinfo
 
 - name: Create MQTT directories
   file:
@@ -56,6 +57,7 @@
   docker_container:
     image: "{{ mqtt_image_name }}"
     name: "{{ mqtt_container_name }}"
+    user: "{{ userinfo.uid }}:{{ userinfo.group }}"
     network_mode: "{{ mqtt_container_network_mode }}"
     restart_policy: "{{ mqtt_container_restart_policy }}"
     state: started

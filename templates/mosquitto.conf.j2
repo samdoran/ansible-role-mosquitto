@@ -50,7 +50,7 @@ set_tcp_nodelay {{ mqtt_set_tcp_nodelay | string | lower }}
 {% if mqtt_per_listener_settings is defined %}
 per_listener_settings {{ mqtt_per_listener_settings | string | lower }}
 {% endif %}
-{% if mqtt_bind_address is defined %}
+{% if mqtt_bind_address is defined and mqtt_installation_method == 'native' %}
 bind_address {{ mqtt_bind_address }}
 {% endif %}
 {% if mqtt_port is defined %}
