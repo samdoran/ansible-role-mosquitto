@@ -9,18 +9,20 @@ galaxy_info:
   platforms:
     - name: EL
       versions:
-        - 6
         - 7
+        - 8
 
     - name: Ubuntu
       versions:
-        - trusty
         - xenial
+        - bionic
+        - focal
 
     - name: Debian
       versions:
-        - stretch
         - jessie
+        - stretch
+        - buster
 
   galaxy_tags:
     - system
