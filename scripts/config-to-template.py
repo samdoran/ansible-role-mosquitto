@@ -23,7 +23,7 @@ NEEDS_QUOTE = (
     'tls_version',
     'max_connections',
     'ciphers',
-    )
+)
 
 DEFAULTS = {
     'acl_file': '"{{ mqtt_config_dir }}/acl',
@@ -118,7 +118,7 @@ if not os.path.isdir(output_dir):
 
 
 # Write out defaults/main.yml, table of vars for README, and a Jinja template file
-param_re = re.compile('^#([\w-]+)\s?(.*?)(?: #.*)?$')
+param_re = re.compile(r'^#([\w-]+)\s?(.*?)(?: #.*)?$')
 skip_re = re.compile('#(ffdc_output|max_log_entries|trace_level|trace_output)')
 template_file = '{output_dir}/mosquitto.conf.j2'.format(output_dir=output_dir)
 defaults_file = '{output_dir}/defaults_main.yml'.format(output_dir=output_dir)
@@ -181,7 +181,7 @@ with open(template_file, 'w') as template, \
                 # If there isn't a default value on the line, assume it's a boolean value and default to 'false'
                 # unless it has a default value specified in DEFAULTS
                 elif not param_match.groups()[1] and orig_param not in DEFAULTS.keys():
-                    #template_conditional = '{{% if {prefix}{var_param} %}}\n'
+                    # template_conditional = '{{% if {prefix}{var_param} %}}\n'
                     template_line = template_line_bool
                     value = 'false'
 
