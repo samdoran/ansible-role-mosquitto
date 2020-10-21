@@ -11,12 +11,13 @@ env:
     - MOLECULE_DISTRIBUTION: ubuntu18
     - MOLECULE_DISTRIBUTION: ubuntu20
     - MOLECULE_DISTRIBUTION: debian8
+      ANSIBLE_PYTHON_INTERPRETER: /usr/bin/python
     - MOLECULE_DISTRIBUTION: debian9
     - MOLECULE_DISTRIBUTION: debian10
     - MOLECULE_DISTRIBUTION: fedora32
 
 install:
-  - pip install molecule[lint]==3.0.6 docker
+  - pip install molecule==3.0.8 docker yamllint ansible-lint ansible
 
 before_script:
   # Remove "ansible-role-" prefix from role name
