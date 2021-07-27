@@ -1,7 +1,6 @@
 Mosquitto
 =========
 [![Galaxy](https://img.shields.io/badge/galaxy-samdoran.mosquitto-blue.svg?style=flat)](https://galaxy.ansible.com/samdoran/mosquitto)
-[![Build Status](https://travis-ci.com/samdoran/ansible-role-mosquitto.svg?branch=master)](https://travis-ci.com/samdoran/ansible-role-mosquitto)
 
 Install [Eclipse Mosquitto](https://mosquitto.org/), a lightweight [MQTT](https://en.wikipedia.org/wiki/MQTT) broker.
 
