@@ -1,5 +1,7 @@
+*.swp
 *.tar
 *.tar.gz
 *.zip
 scripts/mosquitto-*
 scripts/output-*
+filter_plugins/__pycache__
