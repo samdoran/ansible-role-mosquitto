@@ -1,6 +1,6 @@
 - name: ARCH | Install packages
   community.general.pacman:
-    name: " {{ mqtt_packages }}"
-    state: latest
+    name: "{{ mqtt_packages }}"
+    state: installed
   tags:
     - mqtt
