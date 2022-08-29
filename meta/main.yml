@@ -1,10 +1,10 @@
 galaxy_info:
   role_name: mosquitto
   author: Sam Doran
-  description: Install and configure Mosquiotto, an MQTT broker
+  description: Install and configure Eclipse Mosquitto, an MQTT broker
   company: ~
   license: Apache 2.0
-  min_ansible_version: 2.5
+  min_ansible_version: 2.9
 
   platforms:
     - name: EL
@@ -17,12 +17,14 @@ galaxy_info:
         - xenial
         - bionic
         - focal
+        - jammy
 
     - name: Debian
       versions:
         - jessie
         - stretch
         - buster
+        - bullseye
 
   galaxy_tags:
     - system
