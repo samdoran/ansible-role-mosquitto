@@ -1,3 +1,5 @@
 mqtt_packages:
   - mosquitto
   - mosquitto-clients
+
+mqtt_pid_file: /run/mosquitto/mosquitto.pid
