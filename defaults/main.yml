@@ -10,7 +10,6 @@ mqtt_config_files:
     group: "{{ mqtt_group }}"
 
 mqtt_accounts: []
-mqtt_pid_file: /var/run/mosquitto.pid
 mqtt_user: mosquitto
 mqtt_group: mosquitto
 mqtt_port: 1883
@@ -44,6 +43,7 @@ mqtt_container_volumes:
   - "{{ mqtt_data_dir }}/data:{{ mqtt_container_data_dir }}:{{ mqtt_selinux_mount_options }}rw"
   - "{{ mqtt_data_dir }}/log:{{ mqtt_container_log_dir }}:{{ mqtt_selinux_mount_options }}rw"
 
+# mqtt_pid_file: /var/run/mosquitto/mosquitto.pid
 # mqtt_sys_interval: 10
 # mqtt_store_clean_interval: 10
 
