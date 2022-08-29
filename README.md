@@ -22,7 +22,7 @@ Role Variables
 | `mqtt_accounts` | `[]` | List of accounts and their hash generated with `mosquitto_passwd` that will have access to the broker. |
 | `mqtt_container_name` | `mqtt` | Name of the running container. |
 | `mqtt_image_name` | `eclipse-mosquitte` | Name of the image to pull. |
-| `mqtt_container_network_mode` | `host` | Container networking mode. |
+| `mqtt_container_network_mode` | `bridge` | Container networking mode. |
 | `mqtt_container_restart_policy` | `always` | Conatainer restart policy. Setting to `always` ensures the container will start when the Docker daemon launches. |
 | `mqtt_container_data_path` | `/mosquitto` | Path inside running container where config will be available. |
 | `mqtt_container_state` | `started` | State of the container. |

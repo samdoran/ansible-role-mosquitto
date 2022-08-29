@@ -28,7 +28,7 @@ mqtt_log_types:
 # Container setings
 mqtt_container_name: mqtt
 mqtt_image_name: eclipse-mosquitto
-mqtt_container_network_mode: host
+mqtt_container_network_mode: bridge
 mqtt_container_restart_policy: always
 mqtt_container_config_dir: /mosquitto/config
 mqtt_container_data_dir: /mosquitto/data
