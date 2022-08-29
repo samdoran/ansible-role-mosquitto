@@ -1,13 +1,13 @@
 mqtt_config_dir: /etc/mosquitto
 mqtt_data_dir: /var/lib/mosquitto
-mqtt_log_dir: /var/log/mosquitto
 mqtt_include_dir: "{{ mqtt_config_dir }}/conf.d"
+mqtt_log_dir: /var/log/mosquitto
 mqtt_persistence_location: "{{ mqtt_data_dir }}/"
 
 mqtt_directories:
   - "{{ mqtt_include_dir }}"
   - "{{ mqtt_data_dir }}/data"
-  - "{{ mqtt_data_dir }}/log"
+  - "{{ mqtt_log_dir }}"
 
 mqtt_touch_files:
   - "{{ mqtt_log_dir }}/{{ mqtt_log_file }}"

@@ -2,10 +2,22 @@
   tags:
     - mqtt
 
+- name: Create MQTT directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ mqtt_user }}"
+    group: "{{ mqtt_group }}"
+    mode: "0755"
+  loop: "{{ mqtt_directories }}"
+  tags:
+    - mqtt
+    - mqtt_config
+
 - name: Copy MQTT config files
   template:
     src: "{{ item.name | default(item) }}"
-    dest: "{{ mqtt_data_dir }}/{{ item.name | default(item) | splitext | first }}"
+    dest: "{{ mqtt_config_dir }}/{{ item.name | default(item) | splitext | first }}"
     backup: yes
     owner: "{{ item.owner | default(omit) }}"
     group: "{{ item.group | default(omit) }}"
