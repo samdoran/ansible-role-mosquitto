@@ -54,7 +54,7 @@ per_listener_settings {{ mqtt_per_listener_settings | string | lower }}
 bind_address {{ mqtt_bind_address }}
 {% endif %}
 {% if mqtt_port is defined %}
-port {{ mqtt_port }}
+listener {{ mqtt_port }}
 {% endif %}
 {% if mqtt_max_connections is defined %}
 max_connections {{ mqtt_max_connections }}
