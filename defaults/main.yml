@@ -6,6 +6,8 @@ mqtt_config_files:
   - mosquitto.conf.j2
   - name: passwd.j2
     mode: '0600'
+    owner: "{{ mqtt_user }}"
+    group: "{{ mqtt_group }}"
 
 mqtt_accounts: []
 mqtt_pid_file: /var/run/mosquitto.pid
