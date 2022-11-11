@@ -1,5 +1,5 @@
 - name: restart mqtt container
-  docker_container:
+  community.docker.docker_container:
     image: "{{ mqtt_image_name }}"
     name: "{{ mqtt_container_name }}"
     network_mode: "{{ mqtt_container_network_mode }}"
