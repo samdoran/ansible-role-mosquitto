@@ -7,6 +7,7 @@ Install [Eclipse Mosquitto](https://mosquitto.org/), a lightweight [MQTT](https:
 Requirements
 ------------
 
+EPEL repository.
 Docker if running in a container.
 
 Role Variables
@@ -112,14 +113,19 @@ Role Variables
 Dependencies
 ------------
 
+- samdoran.repo_epel
 - samdoran.docker (only if running in a container)
 
 Example Playbook
 ----------------
 
     - hosts: all
-      roles:
-         - samdoran.mosquitto
+      tasks:
+        - import_role:
+            name: samdoran.repo_epel
+
+        - import_role:
+            name: samdoran.mosquitto
 
 License
 -------
