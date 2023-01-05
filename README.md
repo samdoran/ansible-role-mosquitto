@@ -18,6 +18,7 @@ Role Variables
 | `mqtt_installation_method` | `native` | How to install the service, either `native` or `container`. |
 | `mqtt_directories` | `[see defaults/main.yml]` | Paths for config, data, and logs |
 | `mqtt_config_files` | `[see defaults/main.yml]` |  |
+| `mqtt_extra_config_files` | `[]` | Extra config files to set ower, group, and optionally mode. |
 | `mqtt_touch_files` | `[see defaults/main.yml]` |  |
 | `mqtt_include_dir` | `{{ mqtt_config_dir }}/conf.d` |  |
 | `mqtt_accounts` | `[]` | List of accounts and their hash generated with `mosquitto_passwd` that will have access to the broker. |

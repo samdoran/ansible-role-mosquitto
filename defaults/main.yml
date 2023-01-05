@@ -2,6 +2,7 @@ mqtt_installation_method: native
 mqtt_log_file: mosquitto.log
 mqtt_service_name: mosquitto
 
+mqtt_extra_config_files: []
 mqtt_config_files:
   - mosquitto.conf.j2
   - name: passwd.j2
