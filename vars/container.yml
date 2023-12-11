@@ -1,5 +1,5 @@
 mqtt_config_dir: "{{ mqtt_data_dir }}/config"
-mqtt_data_dir: /var/lib/mosquitto
+mqtt_data_dir: /var/lib/containers/mosquitto
 mqtt_include_dir: "{{ mqtt_container_config_dir }}/conf.d"
 mqtt_log_dir: "{{ mqtt_container_data_dir }}/log"
 mqtt_persistence_location: "{{ mqtt_container_data_dir }}/"

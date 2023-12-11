@@ -54,12 +54,13 @@
     - mqtt_config
 
 - name: Run MQTT container
-  docker_container:
+  community.docker.docker_container:
     image: "{{ mqtt_image_name }}"
     name: "{{ mqtt_container_name }}"
     user: "{{ userinfo.uid }}:{{ userinfo.group }}"
     network_mode: "{{ mqtt_container_network_mode }}"
     restart_policy: "{{ mqtt_container_restart_policy }}"
+    image_name_mismatch: recreate
     state: started
     published_ports: "{{ mqtt_container_published_ports }}"
     volumes: "{{ mqtt_container_volumes }}"
